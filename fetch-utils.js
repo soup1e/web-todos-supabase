@@ -68,4 +68,5 @@ export async function deleteAllTodos() {
 
     // Use this to add the user id as a "where" criteria filter:
     // .eq('user_id', user.id);
+    return await client.from('todos').delete().eq('user_id', user.id);
 }
