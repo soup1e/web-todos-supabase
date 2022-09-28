@@ -31,15 +31,22 @@ export async function signOutUser() {
 
 export async function createTodo(todo) {
     // > Part A: Insert the todo in supabase, returns a single row
+    return await client.from('todos').insert(todo).single();
 }
 
 export async function getTodos() {
     // > Part B: Get all todos for this user from supabase
+    return await client.from('todos').select('*');
 }
 
 export async function completeTodo(id) {
     // > Part C: call update (set complete to true) for the todo that
     // matches the correct id. Returns a single record:
+    return await client
+        .from('todos')
+        .update({ complete: true })
+        .single()
+        .eq('id', id);
 }
 
 export async function deleteAllTodos() {
@@ -61,4 +68,5 @@ export async function deleteAllTodos() {
 
     // Use this to add the user id as a "where" criteria filter:
     // .eq('user_id', user.id);
+    return await client.from('todos').delete().eq('user_id', user.id);
 }
